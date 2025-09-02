@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTop Hooks - Descubra os Vídeos Mais Virais do TikTok</title>
+    <meta name="description" content="Transforme vídeos virais do TikTok em campanhas pagas de alta conversão. Se já funcionou no orgânico, vai BOMBAR no pago. Aumente seu ROAS em +347%.">
+    <link rel="canonical" href="https://tiktophooks.com">
+    
+    <meta property="og:title" content="TikTop Hooks - Descubra os Vídeos Mais Virais do TikTok">
+    <meta property="og:description" content="Transforme vídeos virais do TikTok em campanhas pagas de alta conversão. Aumente seu ROAS em +347%.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tiktophooks.com">
+    <meta property="og:image" content="https://tiktophooks.com/og-image.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'inter': ['Inter', 'sans-serif'] },
+                    colors: { 'accent': '#ff2d79', 'accent-cyan': '#22d3ee' },
+                    animation: { 'fade-in': 'fadeIn 0.6s ease-out' },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent: #ff2d79;
+            --accent-cyan: #22d3ee;
+            --accent-soft: rgba(255, 45, 121, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .title-xl { font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; }
+        .title-lg { font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+        .body-text { font-weight: 400; letter-spacing: 0.01em; line-height: 1.6; }
+
+        .glass { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-medium); border-color: rgba(255, 255, 255, 0.12); }
+
+        .cta-premium {
+            position: relative;
+            background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+            border: 1px solid rgba(255, 45, 121, 0.3);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cta-premium::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: -8px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cta-premium:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent));
+        }
+        .cta-premium:hover::after {
+            opacity: 0.5;
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        .cta-secondary:hover {
+            background-color: var(--glass-bg);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+        
+        /* Modificação: Todos os SVGs do Lucide terão este preenchimento/stroke */
+        .lucide {
+            stroke: url(#icon-gradient); /* Aplica o degradê como stroke */
+            fill: none; /* Garante que não há preenchimento sólido */
+        }
+        /* Garantir que os ícones menores também tenham o fill none */
+        .lucide path, .lucide line, .lucide rect, .lucide circle, .lucide polyline, .lucide polygon {
+            fill: none;
+        }
+
+
+        .accent-gradient-text {
+            background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .bg-subtle { background: radial-gradient(ellipse at center, var(--accent-soft) 0%, transparent 70%); }
+        .header-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); }
+
+        details summary { cursor: pointer; list-style: none; padding: 1.5rem; font-weight: 700; color: var(--text-primary); transition: all 0.3s ease; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary { background: linear-gradient(90deg, var(--accent), var(--accent-cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        details summary::after { content: '↓'; float: right; font-size: 1.25rem; transition: transform 0.3s ease; background: linear-gradient(90deg, var(--accent), var(--accent-cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        details[open] summary::after { transform: rotate(180deg); }
+        details .faq-content { padding: 0 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.6; }
+    </style>
+</head>
+<body class="font-inter text-white overflow-x-hidden" style="background: var(--bg-primary);">
+    
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--accent);" />
+          <stop offset="100%" style="stop-color:var(--accent-cyan);" />
+        </linearGradient>
+      </defs>
+    </svg>
+    
+    <header class="header-sticky">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <span class="text-2xl font-bold accent-gradient-text title-lg">TikTop Hooks</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://tiktophooks.pages.dev/" target="_blank" class="cta-secondary px-6 py-3 rounded-xl font-semibold text-sm hidden md:block">
+                    ACESSAR MINHA CONTA
+                </a>
+                <a href="https://lastlink.com/p/C77832B06?af=A43A195F0" class="cta-premium px-6 py-3 rounded-xl font-semibold text-white text-sm">
+                    COMEÇAR AGORA
+                </a>
+            </div>
+            </div>
+    </header>
+
+    <main>
+        <section class="pt-32 pb-20 px-6 bg-subtle">
+            <div class="container mx-auto max-w-6xl text-center">
+                <div class="animate-fade-in">
+                    <h1 class="text-5xl md:text-7xl title-xl mb-8">
+                        Descubra os Vídeos Mais Virais do TikTok e <span class="accent-gradient-text">Transforme-os em Campanhas Pagas</span> de Alta Conversão
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-12 max-w-4xl mx-auto body-text" style="color: var(--text-secondary);">
+                        Se já funcionou no orgânico, vai <strong class="accent-gradient-text">BOMBAR</strong> no pago. Pare de queimar dinheiro criando conteúdo no escuro - copie o que já está convertendo milhões.
+                    </p>
+                    <a href="https://lastlink.com/p/C77832B06?af=A43A195F0" class="inline-flex items-center cta-premium px-10 py-6 rounded-2xl font-bold text-xl text-white">
+                        QUERO DESCOBRIR OS VÍDEOS MAIS VIRAIS AGORA
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h2 class="text-4xl md:text-6xl title-xl mb-16" style="color: var(--text-primary);">Você está desperdiçando seu orçamento de tráfego pago?</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-16">
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="glass w-16 h-16 rounded-xl mx-auto mb-6 flex items-center justify-center">
+                            <i data-lucide="target" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="title-lg text-xl mb-4" style="color: var(--text-primary);">Criando no Escuro</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Você cria campanhas sem saber se o formato realmente funciona</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="glass w-16 h-16 rounded-xl mx-auto mb-6 flex items-center justify-center">
+                            <i data-lucide="dollar-sign" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="title-lg text-xl mb-4" style="color: var(--text-primary);">Dinheiro Queimado</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Gasta fortunas testando criativos que podem não ter apelo nenhum</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="glass w-16 h-16 rounded-xl mx-auto mb-6 flex items-center justify-center">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="title-lg text-xl mb-4" style="color: var(--text-primary);">Concorrência à Frente</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Seus concorrentes já descobriram o que converte, e você não</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="glass w-16 h-16 rounded-xl mx-auto mb-6 flex items-center justify-center">
+                            <i data-lucide="trending-down" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="title-lg text-xl mb-4" style="color: var(--text-primary);">ROAS Baixíssimo</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Resultado: CPM alto, CPC brutal, ROAS baixíssimo</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl" style="border-color: #dc2626;">
+                    <p class="text-xl font-semibold body-text" style="color: #dc2626;">
+                        "Enquanto você atira no escuro, eles dominam o mercado."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-subtle">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h2 class="text-4xl md:text-6xl title-xl mb-8" style="color: var(--text-primary);">Apresentamos o TikTop Hooks</h2>
+                <p class="text-2xl mb-16 accent-gradient-text title-lg">Sua Arma Secreta Anti-Desperdício</p>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="glass-card p-10 rounded-2xl">
+                        <div class="glass w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"> <span class="text-3xl font-black text-white">1</span> </div>
+                        <h3 class="text-2xl title-lg mb-6 accent-gradient-text">Orgânico Valida</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Milhões de usuários já testaram o conteúdo</p>
+                    </div>
+                    <div class="glass-card p-10 rounded-2xl">
+                        <div class="glass w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"> <span class="text-3xl font-black text-white">2</span> </div>
+                        <h3 class="text-2xl title-lg mb-6 accent-gradient-text">Você Replica</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Adapta os hooks que funcionaram para sua marca</p>
+                    </div>
+                    <div class="glass-card p-10 rounded-2xl">
+                        <div class="glass w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8"> <span class="text-3xl font-black text-white">3</span> </div>
+                        <h3 class="text-2xl title-lg mb-6 accent-gradient-text">Pago Converte</h3>
+                        <p class="body-text" style="color: var(--text-secondary);">Lança campanhas com performance praticamente garantida</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-10 rounded-2xl">
+                    <p class="text-xl leading-relaxed body-text" style="color: var(--text-primary);">
+                        <strong>"Se um vídeo viralizou organicamente, significa que o algoritmo aprovou, o público engajou e o formato converteu. Quando você leva isso para o pago, você não está apostando - está copiando o sucesso."</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-6xl title-xl mb-16 text-center" style="color: var(--text-primary);">3 Passos Para Multiplicar Seu ROAS</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="glass w-24 h-24 rounded-2xl mx-auto mb-8 flex items-center justify-center"> <i data-lucide="search" class="w-12 h-12"></i> </div>
+                        <h3 class="text-2xl title-lg mb-6" style="color: var(--text-primary);">Digite sua palavra-chave</h3>
+                        <ul class="space-y-3 text-left body-text" style="color: var(--text-secondary);"> <li>• Insira o termo do seu nicho (ex: "vendas online", "emagrecimento")</li> <li>• Nossa IA vasculha milhões de vídeos em tempo real</li> </ul>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="glass w-24 h-24 rounded-2xl mx-auto mb-8 flex items-center justify-center"> <i data-lucide="trending-up" class="w-12 h-12"></i> </div>
+                        <h3 class="text-2xl title-lg mb-6" style="color: var(--text-primary);">Receba os vídeos mais virais</h3>
+                        <ul class="space-y-3 text-left body-text" style="color: var(--text-secondary);"> <li>• Veja os vídeos com maior engajamento organizados por performance</li> <li>• Analise visualizações, curtidas, comentários e compartilhamentos</li> <li>• Identifique os hooks, roteiros e formatos que funcionaram</li> </ul>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="glass w-24 h-24 rounded-2xl mx-auto mb-8 flex items-center justify-center"> <i data-lucide="rocket" class="w-12 h-12"></i> </div>
+                        <h3 class="text-2xl title-lg mb-6" style="color: var(--text-primary);">Adapte e lance suas campanhas</h3>
+                        <ul class="space-y-3 text-left body-text" style="color: var(--text-secondary);"> <li>• Copie os elementos que fizeram sucesso</li> <li>• Adapte à sua marca e produto</li> <li>• Lance no Facebook/Instagram Ads com conversão praticamente garantida</li> </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-subtle">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-6xl title-xl mb-16 text-center" style="color: var(--text-primary);">O Que Você Consegue Com o TikTop Hooks</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">Economia Brutal</h3> <p class="body-text" style="color: var(--text-secondary);">Pare de desperdiçar dinheiro testando conteúdo às cegas</p> </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">Vantagem Competitiva</h3> <p class="body-text" style="color: var(--text-secondary);">Descubra o que está funcionando antes dos seus concorrentes</p> </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">Validação Científica</h3> <p class="body-text" style="color: var(--text-secondary);">Cada vídeo já foi testado por milhões de usuários reais</p> </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">Implementação Rápida</h3> <p class="body-text" style="color: var(--text-secondary);">De insight para campanha em menos de 3 minutos</p> </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">ROI Previsível</h3> <p class="body-text" style="color: var(--text-secondary);">Se funcionou no orgânico, vai funcionar no pago</p> </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl flex items-start space-x-6">
+                        <div class="glass w-12 h-12 rounded-xl flex items-center justify-center mt-1"> <i data-lucide="check-circle" class="w-6 h-6"></i> </div>
+                        <div> <h3 class="title-lg text-xl mb-3" style="color: var(--text-primary);">Inspiração Infinita</h3> <p class="body-text" style="color: var(--text-secondary);">Nunca mais fique sem ideias para criativos</p> </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-6xl title-xl mb-16 text-center" style="color: var(--text-primary);">Resultados Comprovados dos Nossos Usuários</h2>
+                
+                <div class="grid md:grid-cols-4 gap-6 mb-16">
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="text-5xl title-xl mb-4 accent-gradient-text">+347%</div>
+                        <p class="body-text" style="color: var(--text-secondary);">aumento médio no ROAS</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="text-5xl title-xl mb-4 accent-gradient-text">-68%</div>
+                        <p class="body-text" style="color: var(--text-secondary);">redução no CPC</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="text-5xl title-xl mb-4 accent-gradient-text">2.4x</div>
+                        <p class="body-text" style="color: var(--text-secondary);">mais conversões com o mesmo orçamento</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div class="text-5xl title-xl mb-4 accent-gradient-text">89%</div>
+                        <p class="body-text" style="color: var(--text-secondary);">dos usuários recuperam o investimento na primeira semana</p>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-10 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="glass w-14 h-14 rounded-xl flex items-center justify-center mr-6"> <span class="font-black text-white text-lg">MS</span> </div>
+                            <div> <h4 class="title-lg text-lg" style="color: var(--text-primary);">Marcus Silva</h4> <p class="text-sm body-text" style="color: var(--text-muted);">E-commerce</p> </div>
+                        </div>
+                        <p class="italic leading-relaxed body-text text-lg" style="color: var(--text-secondary);"> "Em 3 dias usando o TikTop Hooks, meu ROAS saltou de 2.8x para 8.5x. Nunca vi nada igual." </p>
+                    </div>
+                    <div class="glass-card p-10 rounded-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="glass w-14 h-14 rounded-xl flex items-center justify-center mr-6"> <span class="font-black text-white text-lg">AC</span> </div>
+                            <div> <h4 class="title-lg text-lg" style="color: var(--text-primary);">Ana Costa</h4> <p class="text-sm body-text" style="color: var(--text-muted);">Infoprodutor</p> </div>
+                        </div>
+                        <p class="italic leading-relaxed body-text text-lg" style="color: var(--text-secondary);"> "Finalmente entendi por que minhas campanhas não funcionavam. Agora só uso hooks validados e meus resultados explodiram." </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-subtle">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h2 class="text-4xl md:text-6xl title-xl mb-12" style="color: var(--text-primary);">Não Deixe Seus Concorrentes Saírem na Frente</h2>
+                <div class="glass-card p-10 rounded-2xl mb-12" style="border-color: #dc2626;">
+                    <p class="text-xl mb-8 leading-relaxed body-text" style="color: var(--text-primary);"> Enquanto você lê isso, seus concorrentes podem estar descobrindo os próximos hooks virais. Cada dia que você demora é dinheiro jogado fora e oportunidades perdidas. </p>
+                    <p class="text-2xl title-lg" style="color: #dc2626;"> "O mercado de tráfego pago fica mais competitivo a cada dia. Quem tem acesso aos dados vence. Quem não tem, quebra." </p>
+                </div>
+                <a href="https://lastlink.com/p/C77832B06?af=A43A195F0" class="inline-flex items-center cta-premium px-10 py-6 rounded-2xl font-bold text-xl text-white"> QUERO SAIR NA FRENTE AGORA </a>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h2 class="text-4xl md:text-6xl title-xl mb-12" style="color: var(--text-primary);">Garantia de 7 Dias - Risco Zero</h2>
+                <div class="glass-card p-10 rounded-2xl" style="border-color: #16a34a;">
+                    <p class="text-xl leading-relaxed body-text" style="color: var(--text-primary);"> Teste o TikTop Hooks por 7 dias. Se você não multiplicar seus resultados ou não ficar 100% satisfeito, devolvemos cada centavo. <strong class="text-green-400">Sem perguntas, sem burocracia.</strong> </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6 bg-subtle">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-4xl md:text-6xl title-xl mb-16 text-center" style="color: var(--text-primary);">Perguntas Frequentes</h2>
+                <div class="space-y-6">
+                    <details class="glass-card rounded-2xl overflow-hidden">
+                        <summary class="title-lg text-xl" style="color: var(--text-primary);">Como vocês conseguem esses dados?</summary>
+                        <div class="faq-content body-text text-lg" style="color: var(--text-secondary);"> Nossa tecnologia monitora milhões de vídeos em tempo real, analisando métricas de engajamento e performance para identificar os conteúdos com maior potencial viral. </div>
+                    </details>
+                    <details class="glass-card rounded-2xl overflow-hidden">
+                        <summary class="title-lg text-xl" style="color: var(--text-primary);">Funciona para qualquer nicho?</summary>
+                        <div class="faq-content body-text text-lg" style="color: var(--text-secondary);"> Sim. Cobrimos desde e-commerce até infoprodutos, passando por serviços locais, SaaS, dropshipping e muito mais. </div>
+                    </details>
+                    <details class="glass-card rounded-2xl overflow-hidden">
+                        <summary class="title-lg text-xl" style="color: var(--text-primary);">E se meu nicho for muito específico?</summary>
+                        <div class="faq-content body-text text-lg" style="color: var(--text-secondary);"> Quanto mais específico, melhor. Você terá acesso a insights que seus concorrentes nem imaginam que existem. </div>
+                    </details>
+                    <details class="glass-card rounded-2xl overflow-hidden">
+                        <summary class="title-lg text-xl" style="color: var(--text-primary);">Preciso de conhecimento técnico?</summary>
+                        <div class="faq-content body-text text-lg" style="color: var(--text-secondary);"> Zero. A interface é intuitiva - você digita, nós entregamos os resultados. Simples assim. </div>
+                    </details>
+                    <details class="glass-card rounded-2xl overflow-hidden">
+                        <summary class="title-lg text-xl" style="color: var(--text-primary);">Os resultados são garantidos?</summary>
+                        <div class="faq-content body-text text-lg" style="color: var(--text-secondary);"> Embora não possamos garantir resultados específicos (depende da sua execução), 89% dos nossos usuários veem melhoria nas métricas na primeira semana. </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h2 class="text-4xl md:text-6xl title-xl mb-12" style="color: var(--text-primary);">Pare de Queimar Dinheiro. Comece a Copiar o Sucesso.</h2>
+                <p class="text-xl mb-12 body-text" style="color: var(--text-secondary);"> Junte-se a centenas de anunciantes que já descobriram a fórmula </p>
+                <a href="https://lastlink.com/p/C77832B06?af=A43A195F0" class="inline-flex items-center cta-premium px-12 py-8 rounded-2xl font-black text-2xl text-white mb-8"> SIM, EU QUERO ACESSO AOS VÍDEOS MAIS VIRAIS </a>
+                <div class="flex items-center justify-center space-x-8 text-sm body-text" style="color: var(--text-muted);">
+                    <div class="flex items-center space-x-2"> <i data-lucide="shield-check" class="w-5 h-5"></i> <span>Garantia 7 dias</span> </div>
+                    <div class="flex items-center space-x-2"> <i data-lucide="credit-card" class="w-5 h-5"></i> <span>Pagamento seguro</span> </div>
+                    <div class="flex items-center space-x-2"> <i data-lucide="clock" class="w-5 h-5"></i> <span>Acesso imediato</span> </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6" style="background: var(--bg-secondary); border-top: 1px solid var(--glass-border);">
+        <div class="container mx-auto max-w-6xl text-center">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <span class="text-xl title-lg accent-gradient-text">TikTop Hooks</span>
+            </div>
+            <p class="body-text" style="color: var(--text-muted);"> © 2024 TikTop Hooks. Todos os direitos reservados. </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Não é mais necessário iterar sobre a classe .icon-gradient,
+            // pois o CSS já aplica o gradiente a todos os ícones do Lucide.
+            // A classe .icon-gradient também foi removida dos ícones no HTML.
+
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(30px)';
+                    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(section);
+                });
+            }
+
+            document.querySelectorAll('a[href*="lastlink.com"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'click', {
+                            'event_category': 'CTA',
+                            'event_label': this.innerText
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
